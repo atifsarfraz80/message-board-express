@@ -14,8 +14,8 @@
         <a href="/new" class="btn btn-primary">+ New Message</a>
       </div>
       <ul class="message-list">
-        <% messages.forEach((message) => { %>
-          <%- include('message', { message: message }); %>
+        <% messages.forEach((message,index) => { %>
+          <%- include('message', { message: message , id: index}); %>
         <% }); %>
       </ul>
     </main>

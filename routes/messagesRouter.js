@@ -28,4 +28,14 @@ messagesRouter.get("/", (req, res) => {
   });
 });
 
+messagesRouter.get("/:id", (req, res) => {
+  const messageId = Number(req.params.id);
+  const message = messages[messageId];
+  if (!message) {
+    return res.status(404).send("Message not found");
+  }
+
+  res.render("messages/messageDetail", { message: message });
+});
+
 export default messagesRouter;
