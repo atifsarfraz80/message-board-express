@@ -1,0 +1,6 @@
+<%- include('../navbar') %>
+<ul>
+  <% messages.forEach((message) => { %>
+    <%- include('message', {message: message}); %>
+  <% }); %>
+</ul>
