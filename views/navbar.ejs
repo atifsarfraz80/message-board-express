@@ -1,12 +1,14 @@
-<nav>
-    <h1>Mini Message Board App</h1>
-  <ul>
-    <% for (let i = 0; i < links.length; i++) { %>
-      <li>
-        <a href="<%= links[i].href %>">
-          <span> <%= links[i].text %> </span>
-        </a>
-      </li>
-    <% } %>
-  </ul>
-</nav>
+<header class="navbar-header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="/">Mini Message Board</a>
+    </div>
+    <ul class="navbar-links">
+      <% for (let i = 0; i < links.length; i++) { %>
+        <li class="navbar-item">
+          <a class="nav-link" href="<%= links[i].href %>"><%= links[i].text %></a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

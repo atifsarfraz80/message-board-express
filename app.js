@@ -24,6 +24,8 @@ app.use("/", indexRouter);
 app.use("/new", newMessageRouter);
 app.use("/messages", messagesRouter);
 
+app.use(express.static("public"));
+
 app.listen(3000, (error) => {
   if (error) throw error;
   console.log("app running on port 3000");
