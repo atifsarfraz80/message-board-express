@@ -233,3 +233,17 @@ body {
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+/*error styling*/
+.error-box {
+  background-color: #fee2e2;
+  border: 1px solid #f87171;
+  color: #991b1b;
+  border-radius: var(--radius);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.error-box ul {
+  padding-left: 1.2rem;
+}

@@ -1,21 +1,44 @@
 import { Router } from "express";
-const newMessageRouter = Router();
-import { messages } from "./messagesRouter.js";
+import { body, validationResult } from "express-validator";
+import { insertMessage } from "../db/queries.js";
 
-newMessageRouter.get("/", (req, res) => {
-  res.render("form");
+const newMessageRouter = Router();
+
+const validateMessage = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Name is required.")
+    .isLength({ min: 2, max: 50 })
+    .withMessage("Name must be between 2 and 50 characters."),
+  body("newmessage")
+    .trim()
+    .notEmpty()
+    .withMessage("Message text cannot be empty.")
+    .isLength({ min: 1, max: 500 })
+    .withMessage("Message must be under 500 characters."),
+];
+
+newMessageRouter.get("/new", (req, res) => {
+  res.render("form", { errors: [], formData: {} });
 });
 
-newMessageRouter.post("/", (req, res) => {
-  const { newmessage: text, name: user } = req.body;
+newMessageRouter.post("/new", validateMessage, async (req, res, next) => {
+  const errors = validationResult(req);
 
-  messages.push({
-    text: text,
-    user: user,
-    added: new Date(),
-  });
+  if (!errors.isEmpty()) {
+    return res.status(400).render("form", {
+      errors: errors.array(),
+      formData: { name: req.body.name, newmessage: req.body.newmessage },
+    });
+  }
 
-  res.redirect("/messages");
+  try {
+    await insertMessage(req.body.newmessage, req.body.name);
+    res.redirect("/messages");
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default newMessageRouter;

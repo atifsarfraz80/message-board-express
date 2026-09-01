@@ -11,6 +11,17 @@
     <main class="page-container">
       <div class="form-card">
         <h1 class="form-title">Compose a New Message</h1>
+
+        <% if (errors && errors.length > 0) { %>
+          <div class="error-box">
+            <ul>
+              <% errors.forEach(err => { %>
+                <li><%= err.msg %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
         <form method="POST" action="/new" class="message-form">
           <div class="form-group">
             <label for="name" class="form-label">User Name</label>
@@ -19,6 +30,7 @@
               name="name"
               id="name"
               class="form-input"
+              value="<%= formData?.name || '' %>"
               placeholder="e.g. John Doe"
               required
             />
@@ -32,11 +44,9 @@
               rows="5"
               placeholder="Write your message here..."
               required
-            ></textarea>
+            ><%= formData?.newmessage || '' %></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">
-            Post Message
-          </button>
+          <button type="submit" class="btn btn-primary btn-block">Post Message</button>
         </form>
       </div>
     </main>
